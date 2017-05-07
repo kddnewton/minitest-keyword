@@ -1,5 +1,10 @@
 # Minitest::Keyword
 
+[![Build Status](https://travis-ci.org/kddeisz/minitest-keyword.svg?branch=master)](https://travis-ci.org/kddeisz/minitest-keyword)
+[![Coverage Status](https://coveralls.io/repos/github/kddeisz/minitest-keyword/badge.svg?branch=master)](https://coveralls.io/github/kddeisz/minitest-keyword?branch=master)
+[![Gem](https://img.shields.io/gem/v/minitest-keyword.svg)](https://rubygems.org/gems/minitest-keyword)
+
+A small gem for allowing you to use Minitest assertions with keyword arguments. No longer worry about remembering the order of arguments!
 
 ## Installation
 
@@ -19,7 +24,19 @@ Or install it yourself as:
 
 ## Usage
 
+Add `require 'minitest-keyword'` to the top of your `test_helper.rb` script. In your tests you will now be able to change your assertions from:
 
+```ruby
+assert_equal 'foo', foo.inspect
+```
+
+to:
+
+```ruby
+assert_equal exp: 'foo', act: foo.inspect
+```
+
+All of the standard Minitest assertions can now be used with keyword arguments. Note that this gem is still backwards-compatible with Minitest itself, so your existing tests won't break.
 
 ## Development
 
