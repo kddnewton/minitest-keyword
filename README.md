@@ -67,7 +67,7 @@ The associated refutations are also overridden, with the below signatures.
 ```ruby
 refute             test:, msg: nil
 refute_empty       obj:, msg: nil
-refute_equal exp:, act:, msg: nil
+refute_equal       exp:, act:, msg: nil
 refute_in_delta    exp:, act:, delta:, msg: nil
 refute_in_epsilon  a:, b:, epsilon:, msg: nil
 refute_includes    collection:, obj:, msg: nil
