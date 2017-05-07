@@ -5,15 +5,15 @@ module Minitest
   module Keyword
     class OverloadedArgumentError < ArgumentError
       def initialize(method_name, argument_name)
-        super "Cannot specify keyword argument and pass regular argument to " \
-              "#{method_name} for argument #{argument_name}"
+        super("Cannot specify keyword argument and pass regular argument to " \
+              "#{method_name} for argument #{argument_name}")
       end
     end
 
     class MissingRequiredArgumentError < ArgumentError
       def initialize(method_name, argument_name)
-        super "You must specify a value for #{argument_name} for the " \
-              "#{method_name} assertion"
+        super("You must specify a value for the #{argument_name} argument " \
+              "for the #{method_name} assertion")
       end
     end
 
@@ -23,13 +23,13 @@ module Minitest
 
       define_method(method_name) do |*args, **kwargs|
         passed_params =
-          parameters.map.with_index do |(type, argument_name), index|
-            if args[index] && kwargs[argument_name]
-              raise OverloadedArgumentError, method_name, argument_name
-            elsif !args[index] && !kwargs[argument_name] && type == :req
-              raise MissingRequiredArgumentError, method_name, argument_name
+          parameters.map.with_index do |(type, arg_name), index|
+            if args.length > index && kwargs.key?(arg_name)
+              raise OverloadedArgumentError.new(method_name, arg_name)
+            elsif args.length <= index && !kwargs.key?(arg_name) && type == :req
+              raise MissingRequiredArgumentError.new(method_name, arg_name)
             else
-              args[index] || kwargs[argument_name]
+              args[index] || kwargs[arg_name]
             end
           end
         super(*passed_params)
