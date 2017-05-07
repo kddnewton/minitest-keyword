@@ -19,20 +19,29 @@ module Minitest
 
     Assertions.instance_methods.grep(/assert|refute/).each do |method_name|
       parameters = Assertions.instance_method(method_name).parameters
-      next unless parameters.any? { |type, name| type == :req }
+      next if parameters.empty?
 
-      define_method(method_name) do |*args, **kwargs|
+      define_method(method_name) do |*args, **kwargs, &block|
         passed_params =
           parameters.map.with_index do |(type, arg_name), index|
             if args.length > index && kwargs.key?(arg_name)
               raise OverloadedArgumentError.new(method_name, arg_name)
             elsif args.length <= index && !kwargs.key?(arg_name) && type == :req
               raise MissingRequiredArgumentError.new(method_name, arg_name)
+            elsif type == :rest
+              args.any? ? args[index..-1] : kwargs[arg_name]
             else
               args[index] || kwargs[arg_name]
             end
           end
-        super(*passed_params)
+
+        # Special case for behavior like `assert_raises`, where a splat takes
+        # all of the types of errors for rescue
+        if parameters.length == 1 && parameters[0][0] == :rest
+          passed_params.flatten!(1)
+        end
+
+        super(*passed_params, &block)
       end
     end
   end

@@ -97,4 +97,53 @@ class Minitest::KeywordTest < Minitest::Test
     refute_operator 4, :>, 5, 'should not be > 5'
     refute_operator o1: 4, op: :>, o2: 5, msg: 'should not be > 5'
   end
+
+  def test_assert_output
+    assert_output('stdout', 'stderr') do
+      $stdout.print 'stdout'
+      $stderr.print 'stderr'
+    end
+
+    assert_output(stdout: 'stdout', stderr: 'stderr') do
+      $stdout.print 'stdout'
+      $stderr.print 'stderr'
+    end
+  end
+
+  def test_assert_predicate
+    assert_predicate '', :empty?, 'should be empty'
+    assert_predicate o1: '', op: :empty?, msg: 'should be empty'
+
+    refute_predicate 'foobar', :empty?, 'should not be empty'
+    refute_predicate o1: 'foobar', op: :empty?, msg: 'should not be empty'
+  end
+
+  def test_assert_raises
+    assert_raises(KeyError, ZeroDivisionError) { 1 / 0 }
+    assert_raises(exp: [KeyError, ZeroDivisionError]) { 1 / 0 }
+  end
+
+  def test_assert_respond_to
+    assert_respond_to [], :empty?, 'should respond to empty?'
+    assert_respond_to obj: [], meth: :empty?, msg: 'should respond to empty?'
+
+    refute_respond_to Object.new, :empty?, 'should not respond to empty?'
+    refute_respond_to obj: Object.new, meth: :empty?,
+                      msg: 'should not respond to empty?'
+  end
+
+  def test_assert_same
+    object = Object.new
+
+    assert_same object, object, 'should be the same'
+    assert_same exp: object, act: object, msg: 'should be the same'
+
+    refute_same object, Object.new, 'should not be the same'
+    refute_same exp: object, act: Object.new, msg: 'should not be the same'
+  end
+
+  def test_assert_throws
+    assert_throws(:foo, 'should throw :foo') { throw :foo }
+    assert_throws(sym: :foo, msg: 'should throw :foo') { throw :foo }
+  end
 end
