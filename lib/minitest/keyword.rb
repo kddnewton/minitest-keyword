@@ -5,6 +5,17 @@ module Minitest
   # The module containing overridden assertion methods that will be prepended
   # into the Test class
   module Keyword
+    # Longer names so that the keywords make more sense
+    ALIASES = {
+      act: :actual,
+      cls: :class,
+      exp: :expected,
+      meth: :method,
+      msg: :message,
+      obj: :object,
+      sym: :symbol
+    }.freeze
+
     # Raised if someone tries to pass both the regular arguments and the
     # keyword arguments
     class OverloadedArgumentError < ArgumentError
@@ -28,27 +39,27 @@ module Minitest
       next if parameters.empty?
 
       define_method(method_name) do |*args, **kwargs, &block|
-        passed_params =
-          parameters.map.with_index do |(type, arg_name), index|
-            if args.length > index && kwargs.key?(arg_name)
-              raise OverloadedArgumentError.new(method_name, arg_name)
-            end
+        passed_params = []
 
-            if args.length <= index && !kwargs.key?(arg_name) && type == :req
-              raise MissingRequiredArgumentError.new(method_name, arg_name)
-            end
-
-            if type == :rest
-              args.any? ? args[index..-1] : kwargs[arg_name]
-            else
-              args[index] || kwargs[arg_name]
-            end
+        parameters.each.with_index do |(type, arg_name), index|
+          if args.length > index &&
+             (kwargs.key?(arg_name) || kwargs.key?(ALIASES[arg_name]))
+            raise OverloadedArgumentError.new(method_name, arg_name)
           end
 
-        # Special case for behavior like `assert_raises`, where a splat takes
-        # all of the types of errors for rescue
-        if parameters.length == 1 && parameters[0][0] == :rest
-          passed_params.flatten!(1)
+          if type == :req && args.length <= index &&
+             !kwargs.key?(arg_name) && !kwargs.key?(ALIASES[arg_name])
+            raise MissingRequiredArgumentError.new(method_name, arg_name)
+          end
+
+          if type == :rest && args.any?
+            passed_params += args[index..-1]
+          elsif type == :rest
+            passed_params += (kwargs[arg_name] || kwargs[ALIASES[arg_name]])
+          else
+            passed_params <<
+              (args[index] || kwargs[arg_name] || kwargs[ALIASES[arg_name]])
+          end
         end
 
         super(*passed_params, &block)

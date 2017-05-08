@@ -33,52 +33,52 @@ assert_equal 'foo', foo.inspect
 to:
 
 ```ruby
-assert_equal exp: 'foo', act: foo.inspect
+assert_equal expected: 'foo', actual: foo.inspect
 ```
 
 All of the standard Minitest assertions can now be used with keyword arguments. Note that this gem is still backwards-compatible with Minitest itself, so your existing tests won't break.
 
 ## Cheat Sheet
 
-The actual keyword method creation is done through introspection, but the equivalent method signatures are listed below. Note that when you see `msg: nil` it effectively means that you can pass through a message or it will use whatever standard Minitest message is configured for that assertion.
+The actual keyword method creation is done through introspection, but the equivalent method signatures are listed below. Note that when you see `message: nil` it effectively means that you can pass through a message or it will use whatever standard Minitest message is configured for that assertion.
 
 ```ruby
-assert             test:, msg: nil
-assert_empty       obj:, msg: nil
-assert_equal       exp:, act:, msg: nil
-assert_in_delta    exp:, act:, delta:, msg: nil
-assert_in_epsilon  a:, b:, epsilon:, msg: nil
-assert_includes    collection:, obj:, msg: nil
-assert_instance_of cls:, obj:, msg: nil
-assert_kind_of     cls:, obj:, msg: nil
-assert_match       matcher:, obj:, msg: nil
-assert_nil         obj:, msg: nil
-assert_operator    o1:, op:, o2:, msg: nil
+assert             test:, message: nil
+assert_empty       object:, message: nil
+assert_equal       expected:, actual:, message: nil
+assert_in_delta    expected:, actual:, delta:, message: nil
+assert_in_epsilon  a:, b:, epsilon:, message: nil
+assert_includes    collection:, object:, message: nil
+assert_instance_of class:, object:, message: nil
+assert_kind_of     class:, object:, message: nil
+assert_match       matcher:, object:, message: nil
+assert_nil         object:, message: nil
+assert_operator    o1:, op:, o2:, message: nil
 assert_output      stdout:, stderr:
-assert_predicate   o1:, op:, msg: nil
-assert_raises      exp:
-assert_respond_to  obj:, meth:, msg: nil
-assert_same        exp:, act:, msg: nil
-assert_throws      sym:, msg: nil
+assert_predicate   o1:, op:, message: nil
+assert_raises      expected:
+assert_respond_to  object:, method:, message: nil
+assert_same        expected:, actual:, message: nil
+assert_throws      symbol:, message: nil
 ```
 
 The associated refutations are also overridden, with the below signatures.
 
 ```ruby
-refute             test:, msg: nil
-refute_empty       obj:, msg: nil
-refute_equal       exp:, act:, msg: nil
-refute_in_delta    exp:, act:, delta:, msg: nil
-refute_in_epsilon  a:, b:, epsilon:, msg: nil
-refute_includes    collection:, obj:, msg: nil
-refute_instance_of cls:, obj:, msg: nil
-refute_kind_of     cls:, obj:, msg: nil
-refute_match       matcher:, obj:, msg: nil
-refute_nil         obj:, msg: nil
-refute_operator    o1:, op:, o2:, msg: nil
-refute_predicate   o1:, op:, msg: nil
-refute_respond_to  obj:, meth:, msg: nil
-refute_same        exp:, act:, msg: nil
+refute             test:, message: nil
+refute_empty       object:, message: nil
+refute_equal       expected:, actual:, message: nil
+refute_in_delta    expected:, actual:, delta:, message: nil
+refute_in_epsilon  a:, b:, epsilon:, message: nil
+refute_includes    collection:, object:, message: nil
+refute_instance_of class:, object:, message: nil
+refute_kind_of     class:, object:, message: nil
+refute_match       matcher:, object:, message: nil
+refute_nil         object:, message: nil
+refute_operator    o1:, op:, o2:, message: nil
+refute_predicate   o1:, op:, message: nil
+refute_respond_to  object:, method:, message: nil
+refute_same        expected:, actual:, message: nil
 ```
 
 ## Development
