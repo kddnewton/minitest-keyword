@@ -24,7 +24,7 @@ Or install it yourself as:
 
 ## Usage
 
-Add `require 'minitest-keyword'` to the top of your `test_helper.rb` script. In your tests you will now be able to change your assertions from:
+Add `require 'minitest/keyword'` to your `test_helper.rb` script. In your tests you will now be able to change your assertions from:
 
 ```ruby
 assert_equal 'foo', foo.inspect
