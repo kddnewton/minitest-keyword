@@ -56,11 +56,11 @@ module Minitest
 
     def test_assert_in_epsilon
       assert_in_epsilon 5.0025, 4.9976, 0.001, 'should be within error'
-      assert_in_epsilon a: 5.0025, b: 4.9976, epsilon: 0.001,
+      assert_in_epsilon expected: 5.0025, actual: 4.9976, epsilon: 0.001,
                         message: 'should be within error'
 
       refute_in_epsilon 5.0025, 4.9974, 0.001, 'should not be within error'
-      refute_in_epsilon a: 5.0025, b: 4.9974, epsilon: 0.001,
+      refute_in_epsilon expected: 5.0025, actual: 4.9974, epsilon: 0.001,
                         message: 'should not be within error'
     end
 

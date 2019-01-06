@@ -9,7 +9,9 @@ module Minitest
   module Keyword
     # Longer names so that the keywords make more sense
     ALIASES = {
+      a: :expected,
       act: :actual,
+      b: :actual,
       cls: :class,
       exp: :expected,
       meth: :method,
