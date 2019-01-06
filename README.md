@@ -46,7 +46,7 @@ assert             test:, message: nil
 assert_empty       object:, message: nil
 assert_equal       expected:, actual:, message: nil
 assert_in_delta    expected:, actual:, delta:, message: nil
-assert_in_epsilon  a:, b:, epsilon:, message: nil
+assert_in_epsilon  expected:, actual:, epsilon:, message: nil
 assert_includes    collection:, object:, message: nil
 assert_instance_of class:, object:, message: nil
 assert_kind_of     class:, object:, message: nil
@@ -68,7 +68,7 @@ refute             test:, message: nil
 refute_empty       object:, message: nil
 refute_equal       expected:, actual:, message: nil
 refute_in_delta    expected:, actual:, delta:, message: nil
-refute_in_epsilon  a:, b:, epsilon:, message: nil
+refute_in_epsilon  expected:, actual:, epsilon:, message: nil
 refute_includes    collection:, object:, message: nil
 refute_instance_of class:, object:, message: nil
 refute_kind_of     class:, object:, message: nil
