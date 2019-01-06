@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'minitest'
 require 'minitest/keyword/version'
 
@@ -38,6 +40,7 @@ module Minitest
       parameters = Assertions.instance_method(method_name).parameters
       next if parameters.empty?
 
+      # rubocop:disable Metrics/MethodLength
       define_method(method_name) do |*args, **kwargs, &block|
         passed_params = []
 
@@ -65,6 +68,7 @@ module Minitest
         super(*passed_params, &block)
       end
     end
+    # rubocop:enable Metrics/MethodLength
   end
 
   # Hook into the Minitest::Test class and prepend the Keyword module
