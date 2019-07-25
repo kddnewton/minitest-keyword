@@ -69,8 +69,8 @@ module Minitest
 
         super(*passed_params, &block)
       end
+      # rubocop:enable Metrics/MethodLength
     end
-    # rubocop:enable Metrics/MethodLength
   end
 
   # Hook into the Minitest::Test class and prepend the Keyword module

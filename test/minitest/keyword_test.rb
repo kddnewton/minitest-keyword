@@ -145,11 +145,11 @@ module Minitest
 
     def test_assert_respond_to
       assert_respond_to [], :empty?, 'should respond to empty?'
-      assert_respond_to object: [], meth: :empty?,
+      assert_respond_to object: [], method: :empty?,
                         message: 'should respond to empty?'
 
       refute_respond_to Object.new, :empty?, 'should not respond to empty?'
-      refute_respond_to object: Object.new, meth: :empty?,
+      refute_respond_to object: Object.new, method: :empty?,
                         message: 'should not respond to empty?'
     end
 
