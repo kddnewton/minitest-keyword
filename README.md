@@ -1,7 +1,7 @@
 # Minitest::Keyword
 
-[![Build Status](https://travis-ci.com/kddeisz/minitest-keyword.svg?branch=master)](https://travis-ci.com/kddeisz/minitest-keyword)
-[![Gem](https://img.shields.io/gem/v/minitest-keyword.svg)](https://rubygems.org/gems/minitest-keyword)
+[![Build Status](https://github.com/kddeisz/minitest-keyword/workflows/Main/badge.svg)](https://github.com/kddeisz/minitest-keyword/actions)
+[![Gem Version](https://img.shields.io/gem/v/minitest-keyword.svg)](https://rubygems.org/gems/minitest-keyword)
 
 A small gem for allowing you to use Minitest assertions with keyword arguments. No longer worry about remembering the order of arguments!
 

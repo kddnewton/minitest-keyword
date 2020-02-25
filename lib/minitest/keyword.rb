@@ -40,6 +40,8 @@ module Minitest
 
     Assertions.instance_methods.grep(/assert|refute/).each do |method_name|
       parameters = Assertions.instance_method(method_name).parameters
+
+      # This check here for methods like `assert_silent`
       next if parameters.empty?
 
       # rubocop:disable Metrics/MethodLength
