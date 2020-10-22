@@ -28,3 +28,6 @@ Style/FormatStringToken:
 
 Style/PerlBackrefs:
   Enabled: false
+
+Style/SlicingWithRange:
+  Enabled: false
