@@ -7,8 +7,8 @@ require 'minitest/keyword/version'
 Gem::Specification.new do |spec|
   spec.name          = 'minitest-keyword'
   spec.version       = Minitest::Keyword::VERSION
-  spec.authors       = ['Kevin Deisz']
-  spec.email         = ['kevin.deisz@gmail.com']
+  spec.authors       = ['Kevin Newton']
+  spec.email         = ['kddnewton@gmail.com']
 
   spec.summary       = 'Use Minitest assertions with keyword arguments'
   spec.homepage      = 'https://github.com/kddeisz/minitest-keyword'
