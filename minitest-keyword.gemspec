@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
   spec.email         = ['kddnewton@gmail.com']
 
   spec.summary       = 'Use Minitest assertions with keyword arguments'
-  spec.homepage      = 'https://github.com/kddeisz/minitest-keyword'
+  spec.homepage      = 'https://github.com/kddnewton/minitest-keyword'
   spec.license       = 'MIT'
 
   spec.files         = `git ls-files -z`.split("\x0").reject do |f|

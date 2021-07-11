@@ -1,6 +1,6 @@
 # Minitest::Keyword
 
-[![Build Status](https://github.com/kddeisz/minitest-keyword/workflows/Main/badge.svg)](https://github.com/kddeisz/minitest-keyword/actions)
+[![Build Status](https://github.com/kddnewton/minitest-keyword/workflows/Main/badge.svg)](https://github.com/kddnewton/minitest-keyword/actions)
 [![Gem Version](https://img.shields.io/gem/v/minitest-keyword.svg)](https://rubygems.org/gems/minitest-keyword)
 
 A small gem for allowing you to use Minitest assertions with keyword arguments. No longer worry about remembering the order of arguments!
@@ -88,7 +88,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/kddeisz/minitest-keyword.
+Bug reports and pull requests are welcome on GitHub at https://github.com/kddnewton/minitest-keyword.
 
 ## License
 
