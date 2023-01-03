@@ -10,7 +10,7 @@ A small gem for allowing you to use Minitest assertions with keyword arguments. 
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'minitest-keyword'
+gem "minitest-keyword"
 ```
 
 And then execute:
@@ -23,16 +23,16 @@ Or install it yourself as:
 
 ## Usage
 
-Add `require 'minitest/keyword'` to your `test_helper.rb` script. In your tests you will now be able to change your assertions from:
+Add `require "minitest/keyword"` to your `test_helper.rb` script. In your tests you will now be able to change your assertions from:
 
 ```ruby
-assert_equal 'foo', foo.inspect
+assert_equal "foo", foo.inspect
 ```
 
 to:
 
 ```ruby
-assert_equal expected: 'foo', actual: foo.inspect
+assert_equal expected: "foo", actual: foo.inspect
 ```
 
 All of the standard Minitest assertions can now be used with keyword arguments. Note that this gem is still backwards-compatible with Minitest itself, so your existing tests won't break.
