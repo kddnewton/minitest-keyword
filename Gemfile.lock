@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    minitest-keyword (1.0.1)
+    minitest-keyword (1.0.2)
       minitest (~> 5.0)
 
 GEM
