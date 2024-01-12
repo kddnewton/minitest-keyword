@@ -16,6 +16,12 @@ Gemspec/DevelopmentDependencies:
 Gemspec/RequiredRubyVersion:
   Enabled: false
 
+Metrics/BlockLength:
+  Enabled: false
+
+Metrics/MethodLength:
+  Enabled: false
+
 Layout/LineLength:
   Max: 80
 

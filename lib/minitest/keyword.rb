@@ -47,13 +47,11 @@ module Minitest
       .grep(/assert|refute/)
       .each do |method_name|
         parameters = Assertions.instance_method(method_name).parameters
-
-        # This check here for methods like `assert_silent`
         next if parameters.empty?
 
-        # rubocop:disable Metrics/MethodLength
         define_method(method_name) do |*args, **kwargs, &block|
-          passed_params = []
+          passed_args = []
+          passed_kwargs = {}
 
           parameters.each.with_index do |(type, arg_name), index|
             if args.length > index &&
@@ -66,20 +64,29 @@ module Minitest
               raise MissingRequiredArgumentError.new(method_name, arg_name)
             end
 
-            if type == :rest && args.any?
-              passed_params += args[index..-1]
-            elsif type == :rest
-              passed_params += (kwargs[arg_name] || kwargs[ALIASES[arg_name]])
-            else
-              passed_params << (
+            case type
+            when :rest
+              passed_args +=
+                if args.any?
+                  args[index..-1]
+                else
+                  kwargs[arg_name] || kwargs[ALIASES[arg_name]]
+                end
+            when :key
+              passed_kwargs[arg_name] = (
+                kwargs[arg_name] || kwargs[ALIASES[arg_name]]
+              )
+            when :req, :opt
+              passed_args << (
                 args[index] || kwargs[arg_name] || kwargs[ALIASES[arg_name]]
               )
+            else
+              raise "Unknown parameter type #{type}"
             end
           end
 
-          super(*passed_params, &block)
+          super(*passed_args, **passed_kwargs, &block)
         end
-        # rubocop:enable Metrics/MethodLength
       end
   end
 

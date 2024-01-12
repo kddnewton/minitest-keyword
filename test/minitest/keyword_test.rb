@@ -161,10 +161,28 @@ module Minitest
                         method: :empty?,
                         message: "should respond to empty?"
 
+      assert_respond_to Object.new,
+                        :format,
+                        "should respond to format",
+                        include_all: true
+      assert_respond_to object: Object.new,
+                        method: :format,
+                        message: "should respond to format",
+                        include_all: true
+
       refute_respond_to Object.new, :empty?, "should not respond to empty?"
       refute_respond_to object: Object.new,
                         method: :empty?,
                         message: "should not respond to empty?"
+
+      refute_respond_to Object.new,
+                        :format,
+                        "should not respond to format",
+                        include_all: false
+      refute_respond_to object: Object.new,
+                        method: :format,
+                        message: "should not respond to format",
+                        include_all: false
     end
 
     def test_assert_same
