@@ -45,18 +45,19 @@ The actual keyword method creation is done through introspection, but the equiva
 assert             test:, message: nil
 assert_empty       object:, message: nil
 assert_equal       expected:, actual:, message: nil
-assert_in_delta    expected:, actual:, delta:, message: nil
-assert_in_epsilon  expected:, actual:, epsilon:, message: nil
+assert_in_delta    expected:, actual:, delta: 0.001, message: nil
+assert_in_epsilon  expected:, actual:, epsilon: 0.001, message: nil
 assert_includes    collection:, object:, message: nil
 assert_instance_of class:, object:, message: nil
 assert_kind_of     class:, object:, message: nil
 assert_match       matcher:, object:, message: nil
 assert_nil         object:, message: nil
-assert_operator    o1:, op:, o2:, message: nil
-assert_output      stdout:, stderr:
-assert_predicate   o1:, op:, message: nil
-assert_raises      expected:
-assert_respond_to  object:, method:, message: nil
+assert_operator    receiver:, operator:, argument: UNDEFINED, message: nil
+assert_output      stdout: nil, stderr: nil
+assert_path_exists path:, message: nil
+assert_predicate   receiver:, operator:, message: nil
+assert_raises      expected: []
+assert_respond_to  object:, method:, message: nil, include_all: false
 assert_same        expected:, actual:, message: nil
 assert_throws      symbol:, message: nil
 ```
@@ -67,16 +68,17 @@ The associated refutations are also overridden, with the below signatures.
 refute             test:, message: nil
 refute_empty       object:, message: nil
 refute_equal       expected:, actual:, message: nil
-refute_in_delta    expected:, actual:, delta:, message: nil
-refute_in_epsilon  expected:, actual:, epsilon:, message: nil
+refute_in_delta    expected:, actual:, delta: 0.001, message: nil
+refute_in_epsilon  expected:, actual:, epsilon: 0.001, message: nil
 refute_includes    collection:, object:, message: nil
 refute_instance_of class:, object:, message: nil
 refute_kind_of     class:, object:, message: nil
 refute_match       matcher:, object:, message: nil
 refute_nil         object:, message: nil
-refute_operator    o1:, op:, o2:, message: nil
-refute_predicate   o1:, op:, message: nil
-refute_respond_to  object:, method:, message: nil
+refute_operator    receiver:, operator:, argument: UNDEFINED, message: nil
+refute_path_exists path:, message: nil
+refute_predicate   receiver:, operator:, message: nil
+refute_respond_to  object:, method:, message: nil, include_all: false
 refute_same        expected:, actual:, message: nil
 ```
 
