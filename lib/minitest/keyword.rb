@@ -17,6 +17,9 @@ module Minitest
       meth: :method,
       msg: :message,
       obj: :object,
+      op: :operator,
+      o1: :receiver,
+      o2: :argument,
       sym: :symbol
     }.freeze
 
@@ -47,7 +50,7 @@ module Minitest
       .grep(/assert|refute/)
       .each do |method_name|
         parameters = Assertions.instance_method(method_name).parameters
-        next if parameters.empty?
+        next if parameters.empty? || method_name == :assert_send
 
         define_method(method_name) do |*args, **kwargs, &block|
           passed_args = []

@@ -14,10 +14,11 @@ jobs:
     - uses: actions/checkout@master
     - uses: ruby/setup-ruby@v1
       with:
-        ruby-version: '3.2'
+        ruby-version: '3.3'
         bundler-cache: true
     - name: Lint and test
       run: |
         bundle exec rake stree:check
         bundle exec rubocop --parallel
         bundle exec rake test
+        bin/readme

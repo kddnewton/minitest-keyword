@@ -1,0 +1,54 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require "bundler/setup"
+require "minitest/keyword"
+
+aliases = Hash.new { |hash, key| hash[key] = key }
+aliases.merge!(Minitest::Keyword::ALIASES)
+
+source = Minitest::Assertions
+source.instance_methods.grep(/^(assert|refute)/).sort.each do |method_name|
+  method = source.instance_method(method_name)
+  parameters = method.parameters
+
+  next if parameters.empty? || method_name == :assert_send
+
+  iseq = RubyVM::InstructionSequence.of(method).to_a
+  opt_index = 0
+
+  values =
+    parameters.map do |(parameter_type, parameter_name)|
+      name = aliases[parameter_name]
+
+      case parameter_type
+      in :req
+        "#{name}:"
+      in :opt
+        stack = []
+        iseq[13][iseq[13].index(iseq[11][:opt][opt_index])..].each do |insn|
+          case insn
+          in Symbol | Integer
+            next
+          in [:opt_getconstant_path, path]
+            stack << path.join("::")
+          in [:putobject, object]
+            stack << object.inspect
+          in [:putnil]
+            stack << "nil"
+          in [/^setlocal/, Integer]
+            break
+          end
+        end
+
+        opt_index += 1
+        "#{name}: #{stack.pop}"
+      in :key
+        "#{name}: #{iseq[11][:keyword].assoc(parameter_name)[1]}"
+      in :rest
+        "#{name}: []"
+      end
+    end
+
+  puts "%-18s %s" % [method_name, values.join(", ")]
+end
