@@ -31,7 +31,7 @@ source.instance_methods.grep(/^(assert|refute)/).sort.each do |method_name|
           in Symbol | Integer
             next
           in [:opt_getconstant_path, path]
-            stack << path.join("::")
+            stack << [source.name, *path].join("::")
           in [:putobject, object]
             stack << object.inspect
           in [:putnil]
