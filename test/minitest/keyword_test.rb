@@ -142,6 +142,14 @@ module Minitest
       end
     end
 
+    def test_assert_path_exists
+      assert_path_exists __FILE__, "should exist"
+      assert_path_exists path: __FILE__, message: "should exist"
+
+      refute_path_exists "nope.txt", "should not exist"
+      refute_path_exists path: "nope.txt", message: "should not exist"
+    end
+
     def test_assert_predicate
       assert_predicate "", :empty?, "should be empty"
       assert_predicate o1: "", op: :empty?, message: "should be empty"

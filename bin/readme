@@ -11,15 +11,19 @@ source = Minitest::Assertions
 source.instance_methods.grep(/^(assert|refute)/).sort.each do |method_name|
   method = source.instance_method(method_name)
   parameters = method.parameters
-
   next if parameters.empty? || method_name == :assert_send
+
+  parameter_aliases = aliases
+  if Minitest::VERSION >= "6.0.0" && method_name == :refute_includes
+    parameter_aliases = { **aliases, obj: :collection, sub: :object }
+  end
 
   iseq = RubyVM::InstructionSequence.of(method).to_a
   opt_index = 0
 
   values =
     parameters.map do |(parameter_type, parameter_name)|
-      name = aliases[parameter_name]
+      name = parameter_aliases[parameter_name]
 
       case parameter_type
       in :req

@@ -52,18 +52,23 @@ module Minitest
         parameters = Assertions.instance_method(method_name).parameters
         next if parameters.empty? || method_name == :assert_send
 
+        aliases = ALIASES
+        if Minitest::VERSION >= "6.0.0" && method_name == :refute_includes
+          aliases = { **ALIASES, obj: :collection, sub: :object }
+        end
+
         define_method(method_name) do |*args, **kwargs, &block|
           passed_args = []
           passed_kwargs = {}
 
           parameters.each.with_index do |(type, arg_name), index|
             if args.length > index &&
-                 (kwargs.key?(arg_name) || kwargs.key?(ALIASES[arg_name]))
+                 (kwargs.key?(arg_name) || kwargs.key?(aliases[arg_name]))
               raise OverloadedArgumentError.new(method_name, arg_name)
             end
 
             if type == :req && args.length <= index && !kwargs.key?(arg_name) &&
-                 !kwargs.key?(ALIASES[arg_name])
+                 !kwargs.key?(aliases[arg_name])
               raise MissingRequiredArgumentError.new(method_name, arg_name)
             end
 
@@ -73,15 +78,15 @@ module Minitest
                 if args.any?
                   args[index..-1]
                 else
-                  kwargs[arg_name] || kwargs[ALIASES[arg_name]]
+                  kwargs[arg_name] || kwargs[aliases[arg_name]]
                 end
             when :key
               passed_kwargs[arg_name] = (
-                kwargs[arg_name] || kwargs[ALIASES[arg_name]]
+                kwargs[arg_name] || kwargs[aliases[arg_name]]
               )
             when :req, :opt
               passed_args << (
-                args[index] || kwargs[arg_name] || kwargs[ALIASES[arg_name]]
+                args[index] || kwargs[arg_name] || kwargs[aliases[arg_name]]
               )
             else
               raise "Unknown parameter type #{type}"
