@@ -7,7 +7,6 @@ PATH
 GEM
   remote: https://rubygems.org/
   specs:
-    docile (1.4.1)
     drb (2.2.3)
     minitest (6.0.6)
       drb (~> 2.0)
@@ -15,12 +14,7 @@ GEM
     prettier_print (1.2.1)
     prism (1.9.0)
     rake (13.4.2)
-    simplecov (0.22.0)
-      docile (~> 1.1)
-      simplecov-html (~> 0.11)
-      simplecov_json_formatter (~> 0.1)
-    simplecov-html (0.13.2)
-    simplecov_json_formatter (0.1.4)
+    simplecov (1.0.1)
     syntax_tree (6.3.0)
       prettier_print (>= 1.2.0)
 
